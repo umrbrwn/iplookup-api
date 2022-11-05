@@ -8,7 +8,7 @@ export const handleIPv4Lookup = async (ip) => {
     if (!info) {
         throw new CustomError({
             statusCode: 404,
-            message: 'No information is available for this IP address'
+            message: 'No information is available for this IP address.'
         });
     }
     return info;

@@ -27,7 +27,7 @@ import { ipToInt } from './lib/util.js';
 const rl = rlCreateInterface({ input: process.stdin, output: process.stdout });
 const questionAsync = util.promisify(rl.question).bind(rl);
 const defaultSource = '../ip_lookup_sample.csv';
-const sourcePath = await questionAsync('Enter CSV file path as data source? ') || defaultSource;
+const sourcePath = await questionAsync(`Enter CSV file path as data source? (${defaultSource}) `) || defaultSource;
 rl.close();
 
 // connect to database

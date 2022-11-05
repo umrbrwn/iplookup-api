@@ -3,12 +3,15 @@ dotenv.config();
 
 import process from 'node:process';
 import fastify from 'fastify';
+import cors from '@fastify/cors';
 import { connect as connectDb } from './db/database.js';
 import { connect as connectMemstore } from './db/memstore.js';
 import { start as startStatCounter } from './lib/usage.js';
-import { registerRoutes } from './api/index.js';
+import { registerRoutes } from './api/routes.js';
 
 const app = fastify({ logger: true, disableRequestLogging: true });
+await app.register(cors);
+
 global.log = app.log;
 
 registerRoutes(app);
@@ -26,7 +29,7 @@ const start = async () => {
     await startStatCounter();
 
     app.listen({ port: process.env.IPLKUP_APP_PORT });
-    global.log.info(`Started app server on port ${process.env.IPLKUP_APP_PORT}`);
+    global.log.info(`Started app server on port ${process.env.IPLKUP_APP_PORT}.`);
 
   } catch (err) {
     global.log.error(err, 'Failed to start app server.');
